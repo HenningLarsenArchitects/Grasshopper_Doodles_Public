@@ -6,7 +6,8 @@ Select parts of our internal library made available for the public
 - Gradient Parser
 
 ### Example
-
+The below example creates isocurves for grasshopper. This can be used to preview your results from daylight, wind etc.
+It currently supports penetrated surfaces and polylines, but not curved objects.
 ![Doodles_Example](https://github.com/HenningLarsenArchitects/Grasshopper_Doodles_Public/raw/main/Examples/Doodles_Examples.jpg "Example")
 
 
