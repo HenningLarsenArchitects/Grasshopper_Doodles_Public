@@ -6,6 +6,7 @@ Select parts of our internal library made available for the public
 
 ## Credits
 Co-authors - Mikkel Esrup Steenberg, Mathias Sønderskov Schaltz
+
 Arend van Waart - Clipper plugin - https://github.com/arendvw/clipper
 
 
