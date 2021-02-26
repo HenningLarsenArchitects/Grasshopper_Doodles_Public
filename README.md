@@ -2,8 +2,8 @@
 Select parts of our internal library made available for the public
 
 # Components
-# GridComponent with Isocurves output
-# Gradient Parser
+### GridComponent with Isocurves output
+### Gradient Parser
 
 
 
