@@ -15,4 +15,5 @@ Arend van Waart - [Clipper plugin](https://github.com/arendvw/clipper)
 
 
 Copyright [Henning Larsen Architects](http://www.henninglarsen.com) (C) 2021
+
 [GPL 3.0 Licensing](https://www.gnu.org/licenses/gpl-3.0.html)
