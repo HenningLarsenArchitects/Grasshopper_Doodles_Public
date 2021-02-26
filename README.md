@@ -11,7 +11,7 @@ Select parts of our internal library made available for the public
 ### Credits
 Co-authors - [Mikkel Esrup Steenberg](https://www.github.com/mistdk), [Mathias Sønderskov Schaltz](https://www.github.com/Sonderwoods)
 
-Arend van Waart - Clipper plugin - https://github.com/arendvw/clipper
+Arend van Waart - [Clipper plugin](https://github.com/arendvw/clipper)
 
 
 Copyright Henning Larsen Architects (C) 2021
