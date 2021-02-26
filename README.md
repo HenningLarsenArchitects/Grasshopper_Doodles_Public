@@ -14,9 +14,9 @@ It currently supports penetrated surfaces and polylines, but not curved objects.
 ### Credits
 Co-authors - [Mikkel Esrup Steenberg](https://www.github.com/mistdk), [Mathias Sønderskov Schaltz](https://www.github.com/Sonderwoods)
 
-Arend van Waart - [Clipper plugin](https://github.com/arendvw/clipper)
 
-[Angus Johnson](http://www.angusj.com/) - [Clipper Library](http://www.angusj.com/delphi/)
+[Angus Johnson](http://www.angusj.com/) - [Clipper Core Library](http://www.angusj.com/delphi/)
+Arend van Waart - [Clipper grasshopper implementation](https://github.com/arendvw/clipper)
 
 
 Copyright [Henning Larsen Architects](http://www.henninglarsen.com) (C) 2021
