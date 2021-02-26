@@ -790,7 +790,7 @@ namespace Grasshopper_Doodles_Public
         /// </summary>
         public override System.Guid ComponentGuid
         {
-            get { return new Guid("{ed148ced-bbd1-4f18-9768-32876b024930}"); }
+            get { return new Guid("{ed148ded-bbd1-4f18-9768-32876b024930}"); }
         }
     }
 }

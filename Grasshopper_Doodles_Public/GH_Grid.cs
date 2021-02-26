@@ -162,7 +162,7 @@ namespace Grasshopper_Doodles_Public
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("fcbeb0dc-b545-4162-b280-12fec6a574c7"); }
+            get { return new Guid("fcbeb1dc-b545-4162-b280-12fec6a574c7"); }
         }
     }
 }

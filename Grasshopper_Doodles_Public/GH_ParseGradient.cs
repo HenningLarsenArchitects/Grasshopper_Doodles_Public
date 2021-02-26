@@ -84,7 +84,7 @@ namespace Grasshopper_Doodles_Public
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("38a045b4-7c76-bbbf-9932-c6a3bbf7d2e2"); }
+            get { return new Guid("38a025a4-7c76-bbbf-9932-c6a3bbf7d2e2"); }
         }
     }
 }
