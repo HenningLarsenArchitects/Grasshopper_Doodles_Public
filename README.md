@@ -16,6 +16,8 @@ Co-authors - [Mikkel Esrup Steenberg](https://www.github.com/mistdk), [Mathias S
 
 Arend van Waart - [Clipper plugin](https://github.com/arendvw/clipper)
 
+[Angus Johnson](http://www.angusj.com/) - [Clipper Library](http://www.angusj.com/delphi/)
+
 
 Copyright [Henning Larsen Architects](http://www.henninglarsen.com) (C) 2021
 
