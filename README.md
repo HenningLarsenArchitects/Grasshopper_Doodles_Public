@@ -16,7 +16,9 @@ Co-authors - [Mikkel Esrup Steenberg](https://www.github.com/mistdk), [Mathias S
 
 
 [Angus Johnson](http://www.angusj.com/) - [Clipper Core Library](http://www.angusj.com/delphi/)
+
 Arend van Waart - [Clipper grasshopper implementation](https://github.com/arendvw/clipper)
+
 
 
 Copyright [Henning Larsen Architects](http://www.henninglarsen.com) (C) 2021
