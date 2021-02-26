@@ -5,7 +5,9 @@ Select parts of our internal library made available for the public
 - GridComponent with Isocurves output
 - Gradient Parser
 
+### Example
 
+![Doodles_Example](https://github.com/HenningLarsenArchitects/Grasshopper_Doodles_Public/raw/main/Examples/Doodles_Examples.jpg "Example")
 
 
 ### Credits
