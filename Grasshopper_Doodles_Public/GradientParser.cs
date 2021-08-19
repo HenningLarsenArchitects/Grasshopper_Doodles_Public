@@ -1,5 +1,6 @@
 ﻿using Grasshopper.GUI.Gradient;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Special;
 using Grasshopper.Kernel.Types;
 using System;
@@ -18,9 +19,9 @@ namespace Grasshopper_Doodles_Public
         readonly Grasshopper.GUI.Gradient.GH_Gradient Gradient = new Grasshopper.GUI.Gradient.GH_Gradient();
         public double? Max { get; set; } = null;
         public double? Min { get; set; } = null;
-        public Color AboveMax { get; set; }
-        public Color BelowMin { get; set; }
-        public bool Cap { get; set; }
+        public Color? AboveMax { get; set; }
+        public Color? BelowMin { get; set; }
+        //public bool Cap { get; set; }
         public bool Reverse { get; set; } = false;
 
         public GradientParser(GH_GradientControl gradientControl = null)
@@ -58,6 +59,36 @@ namespace Grasshopper_Doodles_Public
                     param.ExpireSolution(true);
                     return;
                 }
+
+
+                GH_Structure<GH_Number> gradientFirstInput = (GH_Structure<GH_Number>)gradientControl.Params.Input[0].VolatileData;
+
+                Min = gradientFirstInput[0][0].Value;
+
+                GH_Structure<GH_Number> gradientSecondInput = (GH_Structure<GH_Number>)gradientControl.Params.Input[1].VolatileData;
+
+                Max = gradientSecondInput[0][0].Value;
+
+
+
+
+                //GH_PersistentParam<GH_Number> minCast = (GH_PersistentParam<GH_Number>)gradientControl.Params.Input[0].VolatileData.AllData(false).First();
+
+                //foreach (var item in minCast.VolatileData.AllData(false))
+                //{
+                //    bool casted = item.CastTo(out GH_Number number);
+                //    if (casted) Min = number.Value;
+                //}
+
+                //GH_PersistentParam<GH_Number> maxCast = (GH_PersistentParam<GH_Number>)gradientControl.Params.Input[1].VolatileData.AllData(false).First();
+
+                //foreach (var item in maxCast.VolatileData.AllData(false))
+                //{
+                //    bool casted = item.CastTo(out GH_Number number);
+                //    if (casted) Max = number.Value;
+                //}
+
+
 
                 bool isLinear = Gradient.Linear;
                 bool isLocked = Gradient.Locked;
@@ -114,65 +145,41 @@ namespace Grasshopper_Doodles_Public
 
             if (!Min.HasValue || !Max.HasValue)
                 throw new Exception("Min or Max wasnt set for the GradientParser. Please do that before using me");
-            //int k = 1;
-            if (Reverse)
+
+
+
+            for (int i = 0; i < data.Count; i++)
             {
-                for (int i = 0; i < data.Count; i++)
+                double lookupValue = (data[i] - Min.Value) / (Max.Value - Min.Value);
+                if (Reverse)
+                    lookupValue = 1 - lookupValue;
+
+
+                colors[i] = Gradient.ColourAt(lookupValue);
+
+
+                if (data[i] < Min)
                 {
-                    if (data[i] >= Min.Value && data[i] <= Max.Value)
-                        colors[i] = Gradient.ColourAt(1 - (data[i] - Min.Value) / (Max.Value - Min.Value));
-                    else if (data[i] < Min)
-                    {
-                        //Rhino.RhinoApp.WriteLine($"data {data[i]} is below {Min}");
-                        if (Cap)
-                            colors[i] = BelowMin;
-                        else
-                            colors[i] = Gradient.ColourAt(0);
-                    }
 
-                    else
-                    {
-                        //Rhino.RhinoApp.WriteLine($"data {data[i]} is above {Max}");
-                        if (Cap)
-                            colors[i] = AboveMax;
-                        else
-                            colors[i] = Gradient.ColourAt(1);
+                    colors[i] = BelowMin ?? Gradient.ColourAt(Reverse? 1 : 0);
 
-                    }
+                }
+
+                if (data[i] > Max)
+                {
+
+
+                    colors[i] = AboveMax ?? Gradient.ColourAt(Reverse ? 0 : 1);
+
 
                 }
             }
-            else
-            {
-                for (int i = 0; i < data.Count; i++)
-                {
-                    if (!Cap || (Cap && (data[i] >= Min.Value && data[i] <= Max.Value)))
-                        colors[i] = Gradient.ColourAt((data[i] - Min.Value) / (Max.Value - Min.Value));
-                    else if (data[i] < Min)
-                    {
-                        //Rhino.RhinoApp.WriteLine($"data {data[i]} is below {Min}");
-                        if (Cap)
-                            colors[i] = BelowMin;
-                        else
-                            colors[i] = Gradient.ColourAt(0);
-                    }
-
-                    else
-                    {
-                        //Rhino.RhinoApp.WriteLine($"data {data[i]} is above {Max}");
-                        if (Cap)
-                            colors[i] = AboveMax;
-                        else
-                            colors[i] = Gradient.ColourAt(1);
-
-                    }
-                }
-            }
+        
 
 
             return colors;
 
         }
 
-    }
+}
 }

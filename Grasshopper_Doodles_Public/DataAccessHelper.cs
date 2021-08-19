@@ -15,6 +15,8 @@ namespace Grasshopper_Doodles_Public
     /// </summary>
     static class DataAccessHelper
     {
+
+        static string msg = "\nThis might be because your component is outdated. Try to drag a new component of this type to the canvas and see if it helps :-)";
         // Source: https://github.com/arendvw/clipper/tree/master/ClipperComponents/Helpers
         // Author: Arend van Waart arend@studioavw.nl
 
@@ -44,7 +46,15 @@ namespace Grasshopper_Doodles_Public
         {
 
             var temp = default(T);
-            da.GetData(position, ref temp);
+            try
+            {
+                da.GetData(position, ref temp);
+
+            }
+            catch (System.IndexOutOfRangeException e)
+            {
+                throw new IndexOutOfRangeException($"Input parameter not found at position {position}" + msg, e);
+            }
             return temp;
         }
         /// <summary>
@@ -57,7 +67,15 @@ namespace Grasshopper_Doodles_Public
         public static T Fetch<T>(this IGH_DataAccess da, string name)
         {
             var temp = default(T);
-            da.GetData(name, ref temp);
+            try
+            {
+                da.GetData(name, ref temp);
+
+            }
+            catch (System.IndexOutOfRangeException e)
+            {
+                throw new IndexOutOfRangeException($"Input parameter not found: {name}" + msg, e);
+            }
             return temp;
         }
 
@@ -71,7 +89,15 @@ namespace Grasshopper_Doodles_Public
         public static List<T> FetchList<T>(this IGH_DataAccess da, int position)
         {
             var temp = new List<T>();
-            da.GetDataList(position, temp);
+            try
+            {
+                da.GetDataList(position, temp);
+
+            }
+            catch (System.IndexOutOfRangeException e)
+            {
+                throw new IndexOutOfRangeException($"Input parameter not found at position {position}" + msg, e);
+            }
             return temp;
         }
 
@@ -85,7 +111,15 @@ namespace Grasshopper_Doodles_Public
         public static List<T> FetchList<T>(this IGH_DataAccess da, string name)
         {
             var temp = new List<T>();
-            da.GetDataList(name, temp);
+            try
+            {
+                da.GetDataList(name, temp);
+
+            }
+            catch (System.IndexOutOfRangeException e)
+            {
+                throw new IndexOutOfRangeException($"Input parameter not found: {name}" + msg, e);
+            }
             return temp;
         }
         /// <summary>
@@ -97,7 +131,16 @@ namespace Grasshopper_Doodles_Public
         /// <returns></returns>
         public static GH_Structure<T> FetchTree<T>(this IGH_DataAccess da, int position) where T : IGH_Goo
         {
-            da.GetDataTree(position, out GH_Structure<T> temp);
+            GH_Structure<T> temp = default(GH_Structure<T>);
+            try
+            {
+
+                da.GetDataTree(position, out temp);
+            }
+            catch (System.IndexOutOfRangeException e)
+            {
+                throw new IndexOutOfRangeException($"Input parameter not found at position {position}" + msg, e);
+            }
             return temp;
         }
 
@@ -110,7 +153,17 @@ namespace Grasshopper_Doodles_Public
         /// <returns></returns>
         public static GH_Structure<T> FetchTree<T>(this IGH_DataAccess da, string name) where T : IGH_Goo
         {
-            da.GetDataTree(name, out GH_Structure<T> temp);
+
+            GH_Structure<T> temp = default(GH_Structure<T>);
+            try
+            {
+            da.GetDataTree(name, out temp);
+
+            }
+            catch (System.IndexOutOfRangeException e)
+            {
+                throw new IndexOutOfRangeException($"Input parameter not found: {name}" + msg, e);
+            }
             return temp;
         }
     }

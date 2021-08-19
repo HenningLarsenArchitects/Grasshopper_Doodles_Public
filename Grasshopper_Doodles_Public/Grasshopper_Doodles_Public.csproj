@@ -63,11 +63,15 @@
     <Compile Include="GH_Grid.cs" />
     <Compile Include="GH_GridViewer.cs" />
     <Compile Include="GH_ParseGradient.cs" />
+    <Compile Include="GH_SectionType_ List.cs" />
+    <Compile Include="GH_SectionType_Inverval.cs" />
+    <Compile Include="GH_SectionType_Range.cs" />
     <Compile Include="GradientParser.cs" />
     <Compile Include="GrasshopperDoodlesPublicComponent.cs" />
     <Compile Include="Grasshopper_Doodles_PublicInfo.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="InputGeometries.cs" />
+    <Compile Include="InputSelector.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="NumericExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
