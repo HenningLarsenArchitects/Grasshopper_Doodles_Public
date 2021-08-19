@@ -29,6 +29,8 @@ namespace Grasshopper_Doodles_Public
         internal List<GridResults> Resultss { get; set; }
         public double GridDist { get; set; }
 
+        public string Name { get; set; } = "";
+
         public bool UseCenters { get; }
 
         public string GetNames()
@@ -38,7 +40,7 @@ namespace Grasshopper_Doodles_Public
 
         public override string ToString()
         {
-            return $"GraceHopper.Grid ({SimPoints.Count} points)";
+            return $"GraceHopper.Grid \"{Name}\" ({SimPoints.Count} points)";
         }
 
         public List<double> GetResults(string name)
@@ -84,14 +86,14 @@ namespace Grasshopper_Doodles_Public
 
         }
 
-        public Grid(Brep srf, double gridDist, bool useCenters = false)
+        public Grid(Brep srf, double gridDist, bool useCenters = false, bool goLarge = false)
         {
 
             // https://discourse.mcneel.com/t/mesh-fill-holes-best-strategy/71850/14    Strategies to find inner/outer holes for clipper offset TODO.
             var bb = srf.GetBoundingBox(false);
             //Rhino.RhinoApp.WriteLine($"sqrt {Math.Sqrt(bb.Area)} and dist {gridDist}..  divided = {Math.Sqrt(bb.Area) / gridDist}");
-            if (bb.Area / (gridDist * gridDist) > 60000)
-                throw new Exception("too many points?");
+            if (bb.Area / (gridDist * gridDist) > 60000 && goLarge)
+                throw new Exception("too many points? You can set GoLarge to true");
             SimMesh = GeneratePoints(srf, gridDist, out List<Point3d> pts, out planes, useCenters);
 
 
@@ -121,15 +123,15 @@ namespace Grasshopper_Doodles_Public
             UpdateAreas();
         }
 
-        public Grid(Curve curve, double gridDist, bool useCenters = false)
+        public Grid(Curve curve, double gridDist, bool useCenters = false, bool goLarge = false)
         {
 
 
             var srfs = Brep.CreatePlanarBreps(curve, Units.ConvertFromMeter(0.001)); // mesh is faster, but we do breps to automatically sort edge vs hole
             var bb = srfs[0].GetBoundingBox(false);
             //Rhino.RhinoApp.WriteLine($"sqrt {Math.Sqrt(bb.Area)} and dist {gridDist}..  divided = {Math.Sqrt(bb.Area) / gridDist}");
-            if (Math.Sqrt(bb.Area) / gridDist > 300)
-                throw new Exception("too many points?");
+            if (bb.Area / (gridDist * gridDist) > 60000 && goLarge)
+                throw new Exception("too many points? You can set GoLarge to true");
 
             //var surface = NurbsSurface.CreateExtrusion(polyline.ToNurbsCurve(), new Rhino.Geometry.Vector3d(99, 0, 0));
 

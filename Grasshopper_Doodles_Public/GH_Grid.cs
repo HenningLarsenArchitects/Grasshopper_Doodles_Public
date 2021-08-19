@@ -19,7 +19,7 @@ namespace Grasshopper_Doodles_Public
         /// </summary>
         public GhcGrid()
           : base("Grid", "Grid",
-              "GraceHopper Grid\nUse this for analysis (Doodles_HLA).\nTodo:Use Clipper for offset and self intersect.",
+              "GraceHopper Grid\nUse this for analysis (Doodles_HLA). Based on https://github.com/HenningLarsenArchitects/Grasshopper_Doodles_Public",
               Constants.GH_TAB, Constants.GH_GENERIC_SUBTAB)
         {
         }
@@ -44,6 +44,8 @@ namespace Grasshopper_Doodles_Public
             pManager[ps].Optional = true;
             // TODO: https://discourse.ladybug.tools/t/none-uniform-grid/2361/11
 
+            pManager.AddBooleanParameter("GoLarge", "GoLarge", "Set to true if you accept grids larger than 60000 points. This is a safety check.", GH_ParamAccess.item, false);
+
 
 
 
@@ -57,6 +59,7 @@ namespace Grasshopper_Doodles_Public
             pManager.AddGenericParameter("Grids", "G", "Output grids. GreenScenario.Geometry.Grid class", GH_ParamAccess.list);
             pManager.AddMeshParameter("Mesh", "M", "Meshes", GH_ParamAccess.list);
             pManager.AddGenericParameter("Points", "Pt", "Simulation points (center of each face)", GH_ParamAccess.tree);
+            
             //pManager.AddTextParameter("msg", "m", "msg", GH_ParamAccess.item);
         }
 
@@ -73,6 +76,7 @@ namespace Grasshopper_Doodles_Public
             var offset = Units.ConvertFromMeter(DA.Fetch<double>("Vertical Offset [m]"));
             var useCenters = DA.Fetch<bool>("IsoCurves");
             var geometries = DA.FetchList<IGH_GeometricGoo>("Geometry");
+            var goLarge = DA.Fetch<bool>("GoLarge");
 
             DataTree<Point3d> centers = new DataTree<Point3d>();
             List<Grid> myGrids = new List<Grid>();
@@ -126,7 +130,7 @@ namespace Grasshopper_Doodles_Public
 
             for (int i = 0; i < breps.Count; i++)
             {
-                myGrids.Add(new Grid(breps[i], gridSize, useCenters: useCenters));
+                myGrids.Add(new Grid(breps[i], gridSize, useCenters: useCenters, goLarge));
             }
 
             for (int i = 0; i < myGrids.Count; i++)
